@@ -1,58 +1,59 @@
 package com.example.cielocase.core.composable
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.compose.runtime.getValue
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.cielocase.R
-import com.example.cielocase.core.MainViewModel
 import com.example.cielocase.core.Screen
 import com.example.cielocase.core.model.NavDrawerItem
-import com.example.cielocase.util.extensions.getActivity
+import com.example.cielocase.util.composable.colorScheme
 import com.example.cielocase.util.extensions.getDrawable
 import com.example.cielocase.util.extensions.getString
-import com.example.cielocase.util.extensions.popAllTo
 
 @Composable
-fun NavBar(viewModel: MainViewModel = hiltViewModel()) {
-    val context = LocalContext.current
+fun NavBar(navController: NavHostController) {
     val items = listOf(
-        NavDrawerItem(Screen.Tickets, R.drawable.ic_ticket, R.string.my_tickets),
         NavDrawerItem(Screen.Events, R.drawable.ic_stadium, R.string.events),
+        NavDrawerItem(Screen.Tickets, R.drawable.ic_ticket, R.string.my_tickets),
     )
-    val selectedItem = remember { mutableStateOf(items[0]) }
+    val currentEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = currentEntry?.destination?.route
 
-    NavigationBar {
-        items.forEachIndexed { index, item ->
+    NavigationBar(
+        containerColor = colorScheme().primary,
+        contentColor = colorScheme().onPrimary,
+    ) {
+        items.forEach { item ->
             NavigationBarItem(
                 icon = { Icon(item.icon.getDrawable(), item.title.getString()) },
                 label = { Text(item.title.getString()) },
-                selected = item == selectedItem.value,
+                selected = currentRoute == item.screen.route,
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = colorScheme().primary,
+                    selectedTextColor = colorScheme().onPrimary,
+                    indicatorColor = colorScheme().onPrimary,
+                    unselectedIconColor = colorScheme().onPrimary.copy(alpha = NavBarDefaults.UNSELECTED_ALPHA),
+                    unselectedTextColor = colorScheme().onPrimary.copy(alpha = NavBarDefaults.UNSELECTED_ALPHA),
+                ),
                 onClick = {
-                    selectedItem.value = item
-                    context.getActivity()?.let { activity ->
-                        viewModel.navController.observe(activity) { controller ->
-                            controller.popAllTo(item.screen.route)
+                    navController.navigate(item.screen.route) {
+                        popUpTo(Screen.Events.route) {
+                            inclusive = item.screen == Screen.Events
                         }
+                        launchSingleTop = true
                     }
                 },
-                modifier = Modifier.padding(horizontal = 12.dp),
             )
         }
     }
 }
 
-@Preview
-@Composable
-private fun PreviewNavBar() {
-    NavBar()
+private object NavBarDefaults {
+    const val UNSELECTED_ALPHA = 0.7f
 }

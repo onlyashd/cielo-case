@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--
+        The purchase flow itself is offline (catalog is local and the payment happens through the
+        Cielo Smart deep link). These permissions exist only so error reporting can upload events
+        when a SENTRY_DSN is configured.
+    -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!--
+        Android 11+ package visibility: required to resolve/launch the Cielo Smart deep links.
+        The docs mention com.ads.lio.uriappclient; current emulator/terminal builds ship
+        br.com.cielosmart.orderservice, so both are declared plus the lio:// scheme itself.
+    -->
     <queries>
         <package android:name="com.ads.lio.uriappclient" />
+        <package android:name="br.com.cielosmart.orderservice" />
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="lio" />
+        </intent>
     </queries>
 
     <application
@@ -18,6 +36,7 @@
         <activity
             android:name=".core.MainActivity"
             android:exported="true"
+            android:launchMode="singleTask"
             android:theme="@style/Theme.CieloCase">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +44,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+            <!-- Response contract of the Cielo Smart deep link integration. -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
                 <data android:host="response" android:scheme="order" />
             </intent-filter>
         </activity>

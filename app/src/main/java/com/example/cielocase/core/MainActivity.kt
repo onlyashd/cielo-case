@@ -1,42 +1,46 @@
 package com.example.cielocase.core
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.example.cielocase.core.composable.NavBar
-import com.example.cielocase.core.composable.NavigationStack
-import com.example.cielocase.core.composable.TopBar
+import com.example.cielocase.core.composable.AppRoot
+import com.example.cielocase.data.payment.cielo.CieloCallbackHandler
 import com.example.cielocase.ui.theme.CieloCaseTheme
-import com.example.cielocase.util.composable.colorScheme
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+/**
+ * Single activity of the app. It is also the `order://response` contract declared in the
+ * manifest: Cielo Smart returns the payment result as a deep link to this activity
+ * (`launchMode="singleTask"`, so the result arrives in [onNewIntent]).
+ */
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var callbackHandler: CieloCallbackHandler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        handlePaymentCallback(intent)
         enableEdgeToEdge()
         setContent {
             CieloCaseTheme {
-                Scaffold(
-                    contentWindowInsets = WindowInsets.safeContent,
-                    topBar = { TopBar() },
-                    bottomBar = { NavBar() },
-                ) { innerPadding ->
-                    Surface(
-                        modifier = Modifier.padding(innerPadding),
-                        color = colorScheme().background
-                    ) {
-                        NavigationStack()
-                    }
-                }
+                AppRoot()
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handlePaymentCallback(intent)
+    }
+
+    private fun handlePaymentCallback(intent: Intent?) {
+        if (intent?.action != Intent.ACTION_VIEW) return
+        callbackHandler.handle(intent.data?.toString())
     }
 }

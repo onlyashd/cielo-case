@@ -37,7 +37,7 @@ fun TopBar() {
                 Text(stringResource(R.string.app_name))
             }
         },
-        expandedHeight = 90.dp,
+        expandedHeight = 60.dp,
         scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
         modifier = Modifier,
         colors = TopAppBarDefaults.topAppBarColors(

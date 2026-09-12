@@ -1,6 +1,78 @@
 <resources>
     <string name="app_name">Cielo Case</string>
-    <string name="home">Home</string>
-    <string name="events">Events</string>
-    <string name="my_tickets">My Tickets</string>
+    <string name="events">Eventos</string>
+    <string name="my_tickets">Meus ingressos</string>
+
+    <string name="events_empty">Nenhum evento disponível no momento.</string>
+    <string name="events_sold_out">Esgotado</string>
+    <string name="events_sales_closed">Vendas não abertas</string>
+    <string name="events_available_tickets">%1$d ingressos disponíveis</string>
+    <string name="events_buy">Comprar ingressos</string>
+
+    <string name="checkout_title">Quantidade de ingressos</string>
+    <string name="checkout_quantity">Quantidade</string>
+    <string name="checkout_unit_price">Valor unitário</string>
+    <string name="checkout_total">Total</string>
+    <string name="checkout_continue">Continuar para pagamento</string>
+    <string name="checkout_max_reached">Máximo de %1$d ingressos por compra.</string>
+    <string name="checkout_not_enough">Restam apenas %1$d ingressos.</string>
+    <string name="checkout_sales_closed">As vendas deste evento não estão abertas.</string>
+    <string name="checkout_event_not_found">Evento não encontrado.</string>
+
+    <string name="review_title">Revisão da compra</string>
+    <string name="review_order">Pedido</string>
+    <string name="review_payment_method">Forma de pagamento</string>
+    <string name="review_credit">Crédito à vista</string>
+    <string name="review_debit">Débito à vista</string>
+    <string name="review_pix">Pix</string>
+    <string name="review_pay">Pagar com a Cielo</string>
+    <string name="review_paying">Abrindo o pagamento…</string>
+    <string name="review_in_progress">Pagamento em andamento neste pedido. Conclua ou cancele no
+        terminal antes de tentar novamente.</string>
+    <string name="review_simulator_title">Simulador (debug)</string>
+    <string name="review_simulator_description">Envia o mesmo callback que a Cielo enviaria,
+        para validar o fluxo sem o emulador.</string>
+    <string name="review_simulate_approved">Aprovado</string>
+    <string name="review_simulate_denied">Negado</string>
+    <string name="review_simulate_cancelled">Cancelado</string>
+
+    <string name="result_title">Resultado do pagamento</string>
+    <string name="result_waiting">Aguardando o retorno da Cielo…</string>
+    <string name="result_waiting_description">Conclua o pagamento no terminal. O resultado é
+        registrado automaticamente quando a Cielo retornar.</string>
+    <string name="result_approved">Pagamento aprovado</string>
+    <string name="result_denied">Pagamento negado</string>
+    <string name="result_cancelled">Pagamento cancelado</string>
+    <string name="result_failed">Falha na integração</string>
+    <string name="result_see_receipt">Ver comprovante</string>
+    <string name="result_try_again">Tentar novamente</string>
+    <string name="result_back_to_events">Voltar para eventos</string>
+
+    <string name="receipt_title">Comprovante</string>
+    <string name="receipt_purchase">Compra</string>
+    <string name="receipt_auth_code">Autorização</string>
+    <string name="receipt_cielo_code">Código Cielo</string>
+    <string name="receipt_card">Cartão</string>
+    <string name="receipt_product">Produto</string>
+    <string name="receipt_terminal">Terminal</string>
+    <string name="receipt_paid_at">Data</string>
+    <string name="receipt_tickets">Ingressos</string>
+
+    <string name="tickets_empty">Você ainda não possui ingressos.</string>
+    <string name="ticket_sequence">Ingresso %1$d de %2$d</string>
+    <string name="ticket_qr_description">QR Code do ingresso</string>
+
+    <string name="error_missing_credentials">Credenciais da Cielo não configuradas. Preencha
+        CIELO_CLIENT_ID e CIELO_ACCESS_TOKEN no local.properties.</string>
+    <string name="error_cielo_unavailable">Não encontramos o aplicativo de pagamento da Cielo
+        neste dispositivo. Instale o emulador Cielo Smart ou use um terminal.</string>
+    <string name="error_authentication">Falha de autenticação na Cielo (código 4). Verifique o
+        clientID e o accessToken.</string>
+    <string name="error_invalid_response">Não foi possível interpretar a resposta da Cielo.</string>
+    <string name="error_generic">Não foi possível concluir o pagamento.</string>
+    <string name="error_reason">Motivo: %1$s</string>
+    <string name="error_code">Código %1$d</string>
+
+    <string name="common_back">Voltar</string>
+    <string name="common_loading">Carregando…</string>
 </resources>
