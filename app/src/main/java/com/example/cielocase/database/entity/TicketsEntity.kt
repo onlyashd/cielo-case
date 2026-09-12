@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "sales",
+    tableName = "tickets",
     foreignKeys = [
         ForeignKey(
             entity = EventsEntity::class,
@@ -21,7 +21,7 @@ import androidx.room.PrimaryKey
         Index(value = ["holderId"]),
     ]
 )
-data class SalesEntity(
+data class TicketsEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     @ColumnInfo("eventId")

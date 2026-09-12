@@ -26,9 +26,8 @@ import com.example.cielocase.util.extensions.popAllTo
 fun NavBar(viewModel: MainViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val items = listOf(
-        NavDrawerItem(Screen.Dashboard, R.drawable.ic_home, R.string.home),
-        NavDrawerItem(Screen.Events, R.drawable.ic_calendar, R.string.events),
         NavDrawerItem(Screen.Tickets, R.drawable.ic_ticket, R.string.my_tickets),
+        NavDrawerItem(Screen.Events, R.drawable.ic_stadium, R.string.events),
     )
     val selectedItem = remember { mutableStateOf(items[0]) }
 

@@ -6,22 +6,23 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import com.example.cielocase.database.dao.EventsDao
-import com.example.cielocase.database.dao.SalesDao
+import com.example.cielocase.database.dao.TicketsDao
 import com.example.cielocase.database.entity.EventsEntity
-import com.example.cielocase.database.entity.SalesEntity
+import com.example.cielocase.database.entity.TicketsEntity
+import com.example.cielocase.database.migration.Migration1To2
 import javax.inject.Inject
 
 @Database(
     entities = [
         EventsEntity::class,
-        SalesEntity::class,
+        TicketsEntity::class,
     ],
-    version = 1,
+    version = 2,
     exportSchema = false,
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun eventsDao(): EventsDao
-    abstract fun salesDao(): SalesDao
+    abstract fun ticketsDao(): TicketsDao
 }
 
 class Database @Inject constructor() {
@@ -42,4 +43,6 @@ class Database @Inject constructor() {
     }
 }
 
-fun getDatabaseMigrations(): Array<Migration> = arrayOf()
+fun getDatabaseMigrations(): Array<Migration> = arrayOf(
+    Migration1To2(),
+)
