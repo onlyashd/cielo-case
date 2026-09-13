@@ -4,6 +4,20 @@ App Android (Kotlin + Compose) de compra de ingressos integrado ao ecossistema *
 via **deep link** (`lio://payment`). Eventos são hardcoded (não há backend); compras, resultados
 de pagamento e ingressos são persistidos localmente em Room.
 
+|            Events (home)            |                 My Tickets                  |
+|:-----------------------------------:|:-------------------------------------------:|
+| ![events](./docs/assets/events.png) | ![my tickets](./docs/assets/my-tickets.png) |
+
+<details>
+
+<summary>Usage flow -></summary>
+
+|               Events                |                     Ticket Selection                      | Payment Review                                    | Open Cielo Emulator                               | Choose Result type                                       | Payment Result (Success)                                  | Payment Receipt                                     |
+|:-----------------------------------:|:---------------------------------------------------------:|---------------------------------------------------|---------------------------------------------------|----------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------|
+| ![events](./docs/assets/events.png) | ![tickets selection](./docs/assets/tickets-selection.png) | ![payment review](docs/assets/payment-review.png) | ![cielo emulator](docs/assets/cielo-emulator.png) | ![choose result type](docs/assets/cielo-result-type.png) | ![payment result](docs/assets/payment-result-success.png) | ![payment receipt](docs/assets/payment-receipt.png) |
+
+</details>
+
 |                         |                                                                           |
 |-------------------------|---------------------------------------------------------------------------|
 | Linguagem / UI          | Kotlin, Jetpack Compose (Material 3)                                      |
